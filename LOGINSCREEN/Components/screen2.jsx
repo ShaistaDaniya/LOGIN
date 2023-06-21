@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 223,
     height: 64,
-    flex: 'none',
+    flex: 0,
     order: 0,
     flexGrow: 0,
   },
@@ -84,18 +84,27 @@ const styles = StyleSheet.create({
   },
 });
 
-function Screen2() {
+const Screen2 = () => {
+  const handleTap = () => {
+    // Handle the tap logic here
+    console.log('Tapped');
+  };
+
   return (
+    <TouchableOpacity style={styles.container} onPress={handleTap}>
       <View style={styles.container}>
         <Image
           style={styles.logo}
           source={{
-          uri: 'https://i0.wp.com/gigandtake.com/wp-content/uploads/2022/12/FINAL-GAT-LOGO-DARK-1.png?fit=5000%2C1429&ssl=1',
-        }} />
-      <PhoneNumberInput />
-    </View>
+            uri:
+              'https://i0.wp.com/gigandtake.com/wp-content/uploads/2022/12/FINAL-GAT-LOGO-DARK-1.png?fit=5000%2C1429&ssl=1',
+          }}
+        />
+        <PhoneNumberInput />
+      </View>
+    </TouchableOpacity>
   );
-}
+};
 
 const PhoneNumberInput = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -137,11 +146,11 @@ const PhoneNumberInput = () => {
         onPress={handleNextButton}
         disabled={!isButtonActive}
       >
-        <Text style={styles.buttonText}>Next ></Text>
+        <Text style={styles.buttonText}>Next </Text>
       </TouchableOpacity>
       <Text style={styles.text}>
-        By proceeding, you consent to get SMS messages including by automated means, from Gig and Take and its
-        affiliates to the phone number provided
+        By proceeding, you consent to get SMS messages including by automated means, from Gig and Take and its affiliates
+        to the phone number provided
       </Text>
       <Text style={styles.Need}>Need help?</Text>
       <Text style={styles.supportText} onPress={handleSupportTextPress}>

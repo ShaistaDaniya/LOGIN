@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, Text, StyleSheet, TextInput, TouchableOpacity, Linking } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -85,9 +86,17 @@ const styles = StyleSheet.create({
 });
 
 const Screen2 = () => {
+  const navigation = useNavigation();
+
   const handleTap = () => {
     // Handle the tap logic here
     console.log('Tapped');
+  };
+
+  const handleNextButton = () => {
+    if (phoneNumber.length === 10) {
+      navigation.navigate('Screen3');
+    }
   };
 
   return (
@@ -100,13 +109,13 @@ const Screen2 = () => {
               'https://i0.wp.com/gigandtake.com/wp-content/uploads/2022/12/FINAL-GAT-LOGO-DARK-1.png?fit=5000%2C1429&ssl=1',
           }}
         />
-        <PhoneNumberInput />
+        <PhoneNumberInput onNextButton={handleNextButton} />
       </View>
     </TouchableOpacity>
   );
 };
 
-const PhoneNumberInput = () => {
+const PhoneNumberInput = ({ onNextButton }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isButtonActive, setIsButtonActive] = useState(false);
 
@@ -123,6 +132,7 @@ const PhoneNumberInput = () => {
   const handleNextButton = () => {
     // Handle the logic for the Next button here
     console.log('Next button clicked');
+    onNextButton(); // Call the provided onNextButton function
   };
 
   const handleSupportTextPress = () => {

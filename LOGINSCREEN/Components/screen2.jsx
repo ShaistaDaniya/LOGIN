@@ -1,6 +1,5 @@
-import React from 'react';
-import { View, Image, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { View, Image, Text, StyleSheet, TextInput, TouchableOpacity, Linking } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,6 +43,16 @@ const styles = StyleSheet.create({
     height: 42,
     margin: 16,
   },
+  activeButton: {
+    marginTop: 23,
+    backgroundColor: 'darkblue',
+    color: 'white',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    height: 42,
+    margin: 16,
+  },
   buttonText: {
     color: 'white',
     fontSize: 16,
@@ -75,31 +84,71 @@ const styles = StyleSheet.create({
   },
 });
 
-const Screen2 = () => {
-  const navigation = useNavigation();
-
-  const handleTap = () => {
-    navigation.navigate('Screen2');
-  };
-
+function Screen2() {
   return (
-    <TouchableOpacity style={styles.container} onPress={handleTap}>
       <View style={styles.container}>
         <Image
           style={styles.logo}
           source={{
-            uri:
-              'https://i0.wp.com/gigandtake.com/wp-content/uploads/2022/12/FINAL-GAT-LOGO-DARK-1.png?fit=5000%2C1429&ssl=1',
-          }}
-        />
-        <PhoneNumberInput />
-      </View>
-    </TouchableOpacity>
+          uri: 'https://i0.wp.com/gigandtake.com/wp-content/uploads/2022/12/FINAL-GAT-LOGO-DARK-1.png?fit=5000%2C1429&ssl=1',
+        }} />
+      <PhoneNumberInput />
+    </View>
   );
-};
+}
 
 const PhoneNumberInput = () => {
-  // Rest of the component code remains the same
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [isButtonActive, setIsButtonActive] = useState(false);
+
+  useEffect(() => {
+    setIsButtonActive(phoneNumber.length === 10);
+  }, [phoneNumber]);
+
+  const handlePhoneNumberChange = (text) => {
+    // Remove any non-digit characters from the input
+    const formattedNumber = text.replace(/[^0-9]/g, '');
+    setPhoneNumber(formattedNumber);
+  };
+
+  const handleNextButton = () => {
+    // Handle the logic for the Next button here
+    console.log('Next button clicked');
+  };
+
+  const handleSupportTextPress = () => {
+    const supportURL = ''; // Replace with your contact web page URL
+    Linking.openURL(supportURL);
+  };
+
+  return (
+    <View style={styles.regview}>
+      <Text style={styles.register}>Your Registered Phone Number:</Text>
+      <TextInput
+        style={styles.num}
+        keyboardType="phone-pad"
+        placeholder="Enter phone number"
+        value={phoneNumber}
+        onChangeText={handlePhoneNumberChange}
+        maxLength={10}
+      />
+      <TouchableOpacity
+        style={isButtonActive ? styles.activeButton : styles.button}
+        onPress={handleNextButton}
+        disabled={!isButtonActive}
+      >
+        <Text style={styles.buttonText}>Next ></Text>
+      </TouchableOpacity>
+      <Text style={styles.text}>
+        By proceeding, you consent to get SMS messages including by automated means, from Gig and Take and its
+        affiliates to the phone number provided
+      </Text>
+      <Text style={styles.Need}>Need help?</Text>
+      <Text style={styles.supportText} onPress={handleSupportTextPress}>
+        Contact for support
+      </Text>
+    </View>
+  );
 };
 
 export default Screen2;

@@ -1,6 +1,6 @@
-// Screen3.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, ActivityIndicator, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,6 +14,16 @@ const styles = StyleSheet.create({
 });
 
 const Screen3 = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate('Screen4');
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.verify}>Verifying phone number</Text>

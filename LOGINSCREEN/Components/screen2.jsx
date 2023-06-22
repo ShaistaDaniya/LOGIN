@@ -1,4 +1,3 @@
-// Screen2.js
 import React, { useState, useEffect } from 'react';
 import { View, Image, Text, StyleSheet, TextInput, TouchableOpacity, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -95,7 +94,7 @@ const Screen2 = () => {
 
   const handleNextButton = (phoneNumber) => {
     if (phoneNumber.length === 10) {
-      navigation.navigate('Screen3');
+      navigation.navigate('Screen3', { phoneNumber });
     }
   };
 

@@ -1,3 +1,4 @@
+// Screen2.js
 import React, { useState, useEffect } from 'react';
 import { View, Image, Text, StyleSheet, TextInput, TouchableOpacity, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -89,11 +90,10 @@ const Screen2 = () => {
   const navigation = useNavigation();
 
   const handleTap = () => {
-    // Handle the tap logic here
     console.log('Tapped');
   };
 
-  const handleNextButton = () => {
+  const handleNextButton = (phoneNumber) => {
     if (phoneNumber.length === 10) {
       navigation.navigate('Screen3');
     }
@@ -124,15 +124,13 @@ const PhoneNumberInput = ({ onNextButton }) => {
   }, [phoneNumber]);
 
   const handlePhoneNumberChange = (text) => {
-    // Remove any non-digit characters from the input
     const formattedNumber = text.replace(/[^0-9]/g, '');
     setPhoneNumber(formattedNumber);
   };
 
   const handleNextButton = () => {
-    // Handle the logic for the Next button here
     console.log('Next button clicked');
-    onNextButton(); // Call the provided onNextButton function
+    onNextButton(phoneNumber);
   };
 
   const handleSupportTextPress = () => {
@@ -156,7 +154,7 @@ const PhoneNumberInput = ({ onNextButton }) => {
         onPress={handleNextButton}
         disabled={!isButtonActive}
       >
-        <Text style={styles.buttonText}>Next </Text>
+        <Text style={styles.buttonText}>Next</Text>
       </TouchableOpacity>
       <Text style={styles.text}>
         By proceeding, you consent to get SMS messages including by automated means, from Gig and Take and its affiliates

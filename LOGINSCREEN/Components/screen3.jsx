@@ -1,3 +1,4 @@
+// Screen3.js
 import React from 'react';
 import { Text, View, ActivityIndicator, StyleSheet } from 'react-native';
 
